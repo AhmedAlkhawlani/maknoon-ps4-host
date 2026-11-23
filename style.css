@@ -1,0 +1,634 @@
+/* ============================================================
+   مِفتاح مكنون — MAKNOON MIFTAH
+   PS4 Exploit Host · هوية منظومة مَكْنُون
+   خلفية #07090D · سماوي #00E5FF · وردي #FF4081 (٩٠/٨/٢)
+   خط Plex العربي محلي · بلا أي طلب خارجي
+   ملاحظة: مكتوب بأساليب متوافقة مع متصفح PS4 القديم
+   (بلا CSS Grid، بلا custom properties، بلا clamp).
+   ============================================================ */
+
+@font-face {
+  font-family: 'PlexAr';
+  src: url('brand/fonts/plex-ar-400.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PlexAr';
+  src: url('brand/fonts/plex-ar-500.woff2') format('woff2');
+  font-weight: 500;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PlexAr';
+  src: url('brand/fonts/plex-ar-600.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PlexAr';
+  src: url('brand/fonts/plex-ar-700.woff2') format('woff2');
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* ---------- الأساس ---------- */
+html {
+  background-color: #07090D;
+  background-image:
+    radial-gradient(620px 480px at 88% 6%, rgba(0, 229, 255, .13), transparent 62%),
+    radial-gradient(560px 420px at 6% 96%, rgba(255, 64, 129, .10), transparent 62%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  color: #E9F1F8;
+  text-align: center;
+  direction: rtl;
+  font-family: 'PlexAr', 'PlexLa', -apple-system, 'Segoe UI', Tahoma, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+body {
+  margin: 0;
+  padding: 0 18px 34px;
+  min-height: 100%;
+  background: transparent;
+}
+
+/* الشبكة التقنية — تتلاشى قبل الحافة، لا تُرى كاملة */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(0, 229, 255, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 229, 255, .05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  -webkit-mask-image: radial-gradient(circle at 50% 42%, #000 12%, transparent 74%);
+  mask-image: radial-gradient(circle at 50% 42%, #000 12%, transparent 74%);
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+::-webkit-scrollbar { width: 0; height: 0; }
+
+::selection {
+  background: rgba(0, 229, 255, .25);
+  color: #FFFFFF;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: #00E5FF;
+}
+
+/* ---------- رأس الصفحة ---------- */
+.mk-head {
+  padding: 26px 0 2px;
+  text-align: center;
+}
+
+.mk-mark {
+  width: 58px;
+  height: 58px;
+  display: block;
+  margin: 0 auto 10px;
+  border: 0;
+}
+
+.mk-mark--lg {
+  width: 92px;
+  height: 92px;
+  margin-bottom: 16px;
+}
+
+.mk-name {
+  font-size: 29px;
+  font-weight: 700;
+  color: #E9F1F8;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.mk-sub {
+  display: block;
+  margin-top: 7px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #5D6B7C;
+  letter-spacing: .32em;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.mk-ver {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 12px;
+  border: 1px solid rgba(0, 229, 255, .22);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #00E5FF;
+  direction: ltr;
+}
+
+/* عنوان قسم خارج القوائم */
+.mk-section {
+  margin: 22px 0 6px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #00E5FF;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+/* سطر التحميل في الصفحات التي لا تعرض قائمة */
+#msgs.mk-loading {
+  margin: 54px auto 300px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #E9F1F8;
+  line-height: 1.9;
+  max-width: 620px;
+}
+
+/* ---------- العناوين ---------- */
+h1 {
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #E9F1F8;
+  margin: 0;
+}
+
+/* سطر الحالة — يتغيّر عند مرور المؤشر على بايلود */
+#msgs {
+  display: block;
+  min-height: 26px;
+  margin: 14px auto 4px;
+  padding: 0 12px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.7;
+  color: #93A2B4;
+  text-align: center;
+}
+
+/* عنوان القسم داخل القوائم */
+#menu > h1,
+#lnx > h1,
+#mods > h1,
+#tools > h1 {
+  margin: 22px 0 6px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #00E5FF;
+  text-align: center;
+  letter-spacing: 0;
+}
+
+/* خط فاصل */
+hr {
+  height: 1px;
+  width: 460px;
+  max-width: 80%;
+  margin: 16px auto 6px;
+  border: 0;
+  background: linear-gradient(90deg, transparent, rgba(0, 229, 255, .28), transparent);
+}
+
+/* ---------- الأزرار ---------- */
+#menu,
+#lnx,
+#mods,
+#tools,
+.mk-btns {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-block;
+  width: 238px;
+  height: 50px;
+  margin: 5px;
+  padding: 0 12px;
+  vertical-align: top;
+  /* أسماء البايلودات لاتينية: الاتجاه LTR يمنع انقلاب الأرقام في سياق RTL */
+  direction: ltr;
+  unicode-bidi: embed;
+  border: 1px solid rgba(0, 229, 255, .14);
+  border-radius: 10px;
+  background-color: #0C1219;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .025), rgba(255, 255, 255, 0));
+  color: #E9F1F8;
+  font-family: inherit;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 48px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: background-color .22s, border-color .22s, color .22s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.btn:hover {
+  background-color: rgba(0, 229, 255, .07);
+  border-color: rgba(0, 229, 255, .45);
+  color: #00E5FF;
+}
+
+.btn:active {
+  background-color: rgba(0, 229, 255, .12);
+}
+
+/* الزر الأساسي الوحيد في اللوحة — تدرّج سماوي */
+.btn-multi {
+  background-image: linear-gradient(100deg, #00E5FF, #5FE7FF 55%, #00CFE8);
+  background-color: #00E5FF;
+  border-color: transparent;
+  color: #04121A;
+  font-weight: 600;
+}
+
+.btn-multi:hover {
+  background-image: linear-gradient(100deg, #6FF0FF, #9BF4FF 55%, #33E1F5);
+  color: #04121A;
+}
+
+/* روابط خارجية: نفس الشكل مع مؤشّر خفيف */
+.btn-onln::after {
+  content: ' \2197';
+  color: #5D6B7C;
+  font-size: 12px;
+}
+
+.btn-onln:hover::after {
+  color: #00E5FF;
+}
+
+.btn-toolbox {
+  border-color: rgba(0, 229, 255, .28);
+}
+
+/* ---------- شاشات الانتظار ---------- */
+#progress h1 {
+  font-size: 18px;
+  font-weight: 500;
+  color: #93A2B4;
+  line-height: 1.9;
+  margin: 92px auto 380px;
+  max-width: 620px;
+}
+
+/* ---------- عناصر مخفية افتراضيًا ---------- */
+#menu { display: block; }
+#lnx, #mods, #crypto, #tools { display: none; }
+
+/* عدّادات النجاح/الفشل في صفحات 6.72 */
+.mk-stats {
+  margin: 12px 0 0;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.8;
+  color: #5D6B7C;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.mk-stats span {
+  margin: 0 12px;
+}
+
+.mk-pass {
+  color: #00E5FF;
+}
+
+.mk-fail {
+  color: #5D6B7C;
+}
+
+/* ---------- القائمة المنسدلة ---------- */
+select {
+  display: inline-block;
+  width: 76px;
+  height: 42px;
+  margin: 5px;
+  padding: 0 6px;
+  vertical-align: middle;
+  border: 1px solid rgba(0, 229, 255, .14);
+  border-radius: 10px;
+  background: #0C1219;
+  color: #E9F1F8;
+  font-family: inherit;
+  font-size: 14px;
+  direction: ltr;
+}
+
+.mk-unit {
+  display: inline-block;
+  margin: 0 2px 0 8px;
+  vertical-align: middle;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: #5D6B7C;
+  direction: ltr;
+}
+
+/* ---------- التذييل ---------- */
+.mk-foot,
+body > h1:last-of-type {
+  margin: 18px auto 0;
+  font-size: 11.5px;
+  font-weight: 400;
+  line-height: 2;
+  color: #5D6B7C;
+  text-align: center;
+  max-width: 820px;
+}
+
+.mk-foot a,
+body > h1:last-of-type a {
+  display: inline-block;
+  direction: ltr;
+  unicode-bidi: embed;
+  color: #93A2B4;
+  margin: 0 8px;
+  white-space: nowrap;
+}
+
+.mk-foot a:hover,
+body > h1:last-of-type a:hover {
+  color: #00E5FF;
+}
+
+.mk-credit {
+  display: block;
+  font-size: 11.5px;
+  font-weight: 400;
+  line-height: 2.1;
+  color: #5D6B7C;
+}
+
+.mk-credit a {
+  color: #93A2B4;
+  margin: 0 4px;
+}
+
+.mk-credit a:hover {
+  color: #00E5FF;
+}
+
+.mk-credit--dim {
+  margin-top: 10px;
+  font-size: 10.5px;
+  color: #46525F;
+}
+
+/* عبارة قصيرة في الصفحة الرئيسية */
+.mk-quote {
+  margin: 14px auto 0;
+  max-width: 620px;
+  padding: 0 16px;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.9;
+  color: #00E5FF;
+  text-align: center;
+}
+
+/* ============================================================
+   الصفحة الرئيسية — لوحة الإصدارات
+   ============================================================ */
+
+.mk-hero {
+  padding: 22px 0 4px;
+  text-align: center;
+}
+
+.mk-kicker {
+  font-size: 10px;
+  font-weight: 500;
+  color: #00E5FF;
+  letter-spacing: .34em;
+  direction: ltr;
+  unicode-bidi: embed;
+  text-transform: uppercase;
+}
+
+.mk-title {
+  margin: 12px 0 0;
+  font-size: 46px;
+  font-weight: 700;
+  line-height: 1.15;
+  color: #E9F1F8;
+}
+
+.mk-lead {
+  margin: 12px auto 0;
+  max-width: 540px;
+  font-size: 14.5px;
+  font-weight: 400;
+  line-height: 1.85;
+  color: #93A2B4;
+}
+
+.mk-row {
+  margin: 18px auto 0;
+  max-width: 1020px;
+  text-align: center;
+}
+
+/* بطاقة عريضة واحدة تقود اللوحة */
+.mk-wide {
+  display: block;
+  margin: 0 auto;
+  max-width: 640px;
+  padding: 22px 26px;
+  border: 1px solid rgba(0, 229, 255, .28);
+  border-radius: 14px;
+  background-color: #0C1219;
+  background-image: linear-gradient(180deg, rgba(0, 229, 255, .05), rgba(0, 229, 255, 0));
+  text-align: center;
+  color: #E9F1F8;
+  transition: border-color .25s, background-color .25s;
+}
+
+.mk-wide:hover {
+  border-color: rgba(0, 229, 255, .6);
+  background-color: #101821;
+}
+
+.mk-wide__fw {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: #00E5FF;
+  letter-spacing: .18em;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.mk-wide__name {
+  display: block;
+  margin-top: 8px;
+  font-size: 21px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.mk-wide__note {
+  display: block;
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: #93A2B4;
+}
+
+/* أعمدة الإصدارات */
+.mk-col {
+  display: inline-block;
+  width: 300px;
+  min-height: 196px;
+  margin: 6px;
+  padding: 20px 16px 18px;
+  vertical-align: top;
+  border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: 14px;
+  background-color: #0C1219;
+  text-align: center;
+  transition: border-color .25s;
+}
+
+.mk-col:hover {
+  border-color: rgba(0, 229, 255, .22);
+}
+
+.mk-col__fw {
+  display: block;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #E9F1F8;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.mk-col__label {
+  display: block;
+  margin-top: 4px;
+  margin-bottom: 14px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #5D6B7C;
+  letter-spacing: .14em;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.mk-col .btn {
+  display: block;
+  width: 100%;
+  margin: 8px 0 0;
+}
+
+/* بطاقة الاستعادة */
+.mk-restore {
+  display: inline-block;
+  margin: 18px 6px 0;
+  padding: 14px 26px;
+  border: 1px solid rgba(255, 255, 255, .06);
+  border-radius: 12px;
+  background-color: #0C1219;
+  color: #93A2B4;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition: border-color .25s, color .25s;
+}
+
+.mk-restore:hover {
+  border-color: rgba(0, 229, 255, .3);
+  color: #00E5FF;
+}
+
+/* ملاحظة أسفل اللوحة */
+.mk-note {
+  margin: 18px auto 0;
+  max-width: 620px;
+  font-size: 12px;
+  line-height: 1.9;
+  color: #5D6B7C;
+  text-align: center;
+}
+
+/* ---------- الشاشات الكبيرة (تلفزيون 1080p) ---------- */
+@media (min-width: 1500px) {
+  .mk-mark { width: 74px; height: 74px; }
+  .mk-mark--lg { width: 112px; height: 112px; }
+  .mk-name { font-size: 34px; }
+  .mk-sub { font-size: 11px; }
+  .mk-title { font-size: 56px; }
+  .mk-lead { font-size: 17px; max-width: 620px; }
+  .mk-kicker { font-size: 11px; }
+
+  #msgs { font-size: 16px; }
+  #msgs.mk-loading { font-size: 22px; }
+
+  #menu, #lnx, #mods, #tools, .mk-btns { max-width: 1290px; }
+  .btn {
+    width: 302px;
+    height: 60px;
+    margin: 6px;
+    font-size: 17px;
+    line-height: 58px;
+  }
+  #menu > h1, #lnx > h1, #mods > h1, #tools > h1,
+  .mk-section { font-size: 16px; }
+
+  .mk-col { width: 360px; min-height: 222px; padding: 20px 22px 18px; }
+  .mk-row { max-width: 1200px; }
+  .mk-col__fw { font-size: 36px; }
+  .mk-wide { max-width: 760px; padding: 22px 32px; }
+  .mk-wide__name { font-size: 25px; }
+  .mk-restore { font-size: 15px; padding: 17px 32px; }
+  .mk-foot, body > h1:last-of-type { font-size: 13px; }
+  .mk-credit { font-size: 13px; }
+  .mk-quote { font-size: 17px; }
+  .mk-note { font-size: 13.5px; }
+}
+
+/* ---------- الشاشات الصغيرة ---------- */
+@media (max-width: 760px) {
+  .mk-title { font-size: 34px; }
+  .mk-col { width: 260px; }
+  .btn { width: 210px; }
+}
+
+@media (max-width: 520px) {
+  .mk-title { font-size: 28px; }
+  .mk-col { width: 100%; margin: 6px 0; }
+  .btn { width: 100%; margin: 5px 0; }
+  hr { width: 90%; }
+}

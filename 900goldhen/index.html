@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>مِفتاح مكنون — PS4 9.00 GoldHEN</title>
+<link rel="icon" type="image/svg+xml" href="../brand/maknoon-favicon.svg">
+<link rel="stylesheet" href="../style.css">
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js"></script>
+<script src="webkit.js"></script>
+</head>
+<body onload="setTimeout(poc, 50);">
+<header class="mk-head">
+<img class="mk-mark" src="../brand/maknoon-mark.svg" alt="شعار مكنون">
+<div class="mk-name">مِفتاح مكنون</div>
+<div class="mk-sub">MAKNOON MIFTAH · PS4 9.00 · GOLDHEN</div>
+</header>
+
+<script>
+if (window.applicationCache && window.applicationCache.status==0){window.location.replace("cache.html");}
+</script>
+<hr>
+<br>
+<h1 id="msgs" class="mk-loading">Loading GoldHEN v2.4b18.14... Please Wait</h1>
+<h1 class="mk-foot"><span class="mk-credit">احمد الخولاني لصيانة وتعبئة ألعاب البلايستيشن PS3 PS4 PS5</span><span class="mk-credit">هاتف وتلجرام: <a href="tel:775057134" dir="ltr">775057134</a></span><span class="mk-credit">شكرًا لكل مطوّري المشهد</span></h1>
+<script>
+function allset(){
+msgs.innerHTML = LoadedMSG
+}
+
+function load_poc(){
+ var req = new XMLHttpRequest();
+ req.responseType = "arraybuffer";
+ req.open('GET', PLfile);
+ req.send();
+ req.onreadystatechange = function () {
+  if (req.readyState == 4) {
+   PLD = req.response;
+   var payload_buffer = chain.syscall(477, 0, PLD.byteLength*4 , 7, 0x1002, -1, 0);
+   var pl = p.array_from_address(payload_buffer, PLD.byteLength*4);
+   var padding = new Uint8Array(4 - (req.response.byteLength % 4) % 4);
+   var tmp = new Uint8Array(req.response.byteLength + padding.byteLength);
+   tmp.set(new Uint8Array(req.response), 0);
+   tmp.set(padding, req.response.byteLength);
+   var shellcode = new Uint32Array(tmp.buffer);
+   pl.set(shellcode,0);
+   var pthread = p.malloc(0x10);
+   chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+   allset();
+  }
+ };
+}
+
+function jbdone(){
+LoadedMSG = "GoldHEN v2.4b18.14 Loaded ...";
+PLfile = "goldhen_2.4b18.14.bin";
+setTimeout(load_poc, 500);
+}
+</script>
+</body>
+</html>

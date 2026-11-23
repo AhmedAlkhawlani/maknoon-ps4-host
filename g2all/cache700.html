@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html manifest="700.manifest">
+<head>
+<title>مِفتاح مكنون — Multi Fw · 7.00–8.52 · Cache</title>
+<link rel="icon" type="image/svg+xml" href="../brand/maknoon-favicon.svg">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<header class="mk-head">
+<img class="mk-mark" src="../brand/maknoon-mark.svg" alt="شعار مكنون">
+<div class="mk-name">مِفتاح مكنون</div>
+<div class="mk-sub">MULTI FW · 7.00–8.52 · CACHE</div>
+</header>
+
+<script>
+history.replaceState(null,null,'index.html');var histlength=history.length;history.go(-histlength);
+function DLProgress(e){Percent=(Math.round(e.loaded / e.total * 100));window.msgs.innerHTML="تثبيت الحزمة المحلية: " + Percent + "%";}
+function DisplayCacheProgress(){window.msgs.innerHTML="تم تثبيت الحزمة بنجاح ✔";setTimeout(function(){window.msgs.innerHTML="أغلق المتصفح الآن وأعد فتحه…";},1500);}
+window.applicationCache.addEventListener("progress",DLProgress,false);
+window.applicationCache.oncached=function(e){DisplayCacheProgress();};
+window.applicationCache.onupdateready=function(e){DisplayCacheProgress();};
+window.applicationCache.onerror=function(e){window.msgs.innerHTML="تعذّر تثبيت الحزمة — امسح بيانات المتصفح وأعد فتحه…";};
+</script>
+<hr>
+<br>
+<h1 id="msgs" class="mk-loading">بدء تثبيت الحزمة المحلية…</h1>
+<h1 class="mk-foot"><span class="mk-credit">احمد الخولاني لصيانة وتعبئة ألعاب البلايستيشن PS3 PS4 PS5</span><span class="mk-credit">هاتف وتلجرام: <a href="tel:775057134" dir="ltr">775057134</a></span><span class="mk-credit">شكرًا لكل مطوّري المشهد</span></h1>
+</body>
+</html>
